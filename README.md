@@ -4,8 +4,9 @@ Tutorial de ejemplo de como crear una aplicación utilizando Laravel (para el ca
 
 ### Links repositorio
 
- * SSH: git@github.com:jcwirko/Return-app.git
- * HTTPS:  https://github.com/jcwirko/Return-app.git
+ * Github: `https://github.com/jcwirko/Return-app`
+ * SSH: `git@github.com:jcwirko/Return-app.git`
+ * HTTPS:  `https://github.com/jcwirko/Return-app.git`
  
 ### Link a la lista de reproducción del curso
 
