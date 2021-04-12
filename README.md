@@ -1,15 +1,15 @@
 # RETURN APP
 
-Tutorial de ejemplo de como crear una aplicación para el canal de youtube
+Tutorial de ejemplo de como crear una aplicación utilizando Laravel (para el canal de youtube)
 
 ### Links repositorio
 
  * SSH: git@github.com:jcwirko/Return-app.git
  * HTTPS:  https://github.com/jcwirko/Return-app.git
  
-### Link del video
+### Link a la lista de reproducción del curso
 
- * https://www.youtube.com/watch?v=tYZjApKQJ6o&t=7s
+ * https://www.youtube.com/watch?v=-EnyDB9U0x0&list=PLFXK2lH-VaFzilr7iWTJOcgIn_n9DJO8w&index=2
  
 ### Link del canal
 
