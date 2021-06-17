@@ -19,7 +19,7 @@
                                 <label class="mandatory-field">*</label>
                                 <input type="text"
                                        class="form-control {{$errors->has('name') ? 'is-invalid' : ''}}"
-                                       name="name" id="name" placeholder="-">
+                                       name="name" id="name" value="{{old('name')}}">
                                 @if($errors->has('name'))
                                     <span class="text-danger">{{$errors->first('name')}}</span>
                                 @endif
@@ -29,8 +29,13 @@
                             <div>
                                 <label for="unit_price" class="form-fields">Precio unitario ($)</label>
                                 <label class="mandatory-field">*</label>
-                                <input type="text" class="form-control decimal" name="unit_price" id="unit_price"
-                                       placeholder="-">
+                                <input type="text"
+                                       class="form-control  {{$errors->has('unit_price') ? 'is-invalid' : ''}}"
+                                       name="unit_price" id="unit_price"
+                                        value="{{old('unit_price',0)}}">
+                                @if ($errors->has('unit_price'))
+                                    <span class="text-danger">{{ $errors->first('unit_price') }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -40,8 +45,11 @@
                                 <label for="quantity" class="form-fields">Cantidad</label>
                                 <label class="mandatory-field">*</label>
                                 <input type="text"
-                                       class="form-control"
-                                       name="quantity" id="quantity" placeholder="-">
+                                       class="form-control {{$errors->has('quantity') ? 'is-invalid' : ''}}"
+                                       name="quantity" id="quantity" value="{{old('quantity',0)}}">
+                                @if ($errors->has('quantity'))
+                                    <span class="text-danger">{{ $errors->first('quantity') }}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="col-lg-6 form-group">
@@ -49,7 +57,7 @@
                                 <label for="total_cost" class="form-fields">Costo Total</label>
                                 <label class="mandatory-field">*</label>
                                 <input type="text" class="form-control " name="total_cost" id="total_cost"
-                                       placeholder="-">
+                                       readonly value="{{old('total_cost',0)}}">
                             </div>
                         </div>
                     </div>
@@ -58,7 +66,7 @@
                             <div>
                                 <label for="name" class="form-fields">Descripción</label>
                                 <textarea class="form-control" name="description" id="description"
-                                          rows="3"></textarea>
+                                          rows="3">{{old('description')}}</textarea>
                             </div>
                         </div>
                     </div>
