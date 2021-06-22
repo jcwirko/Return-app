@@ -35,6 +35,8 @@ class ProductController extends Controller
     {
         Product::create($request->all());
 
+        alert()->success('Producto guardado correctamente');
+
         return redirect()->route('products.index');
     }
 

@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "laraveles/spanish": "^1.5"
+        "laraveles/spanish": "^1.5",
+        "realrashid/sweet-alert": "^4.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
