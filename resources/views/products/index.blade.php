@@ -36,7 +36,8 @@
                         <td>{{$product->quantity}}</td>
                         <td> ${{$product->total_cost}}</td>
                         <td>
-                            <a href="" class="edit-form-data" data-toggle="modal" data-target="#editMdl">
+                            <a href="" class="edit-form-data" data-toggle="modal" data-target="#editMdl"
+                            onclick="editProduct({{$product}})">
                                 <i class="far fa-edit"></i>
                             </a>
 
@@ -60,6 +61,35 @@
 @push('scripts')
     <script src="{{asset('/libs/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('/libs/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("input[name='unit_price'], input[name='quantity']").on('keyup', function () {
+                calculateTotalCost(this);
+            });
+        });
+
+        function editProduct(product){
+            $("#editProductFrm").attr('action',`/products/${product.id}`);
+
+            $("#editProductFrm #name").val(product.name);
+            $("#editProductFrm #description").val(product.description);
+            $("#editProductFrm #unit_price").val(product.unit_price);
+            $("#editProductFrm #quantity").val(product.quantity);
+            $("#editProductFrm #total_cost").val(product.total_cost);
+        }
+
+        function calculateTotalCost(input){
+            const formId = input.closest('form').id;
+            const unitPrice = $(`#${formId} input[name='unit_price']`);
+            const quantity = $(`#${formId} input[name='quantity']`);
+            const totalCost = $(`#${formId} input[name='total_cost']`);
+
+            if(unitPrice.val() && quantity.val()){
+                totalCost.val(unitPrice.val() * quantity.val());
+            }
+        }
+    </script>
 
     @if(!$errors->isEmpty())
         @if($errors->has('post'))
