@@ -1,22 +1,15 @@
 @extends('layouts.admin')
 
 @section('titulo')
-    <span>Productos</span>
+    <span>Productos eliminados</span>
 
-    <a href="" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#createMdl">
-        <i class="fas fa-plus"></i>
+    <a href="{{route('products.index')}}" class="btn btn-primary">
+        <i class="fas fa-hand-point-left"></i>
     </a>
 
-    <a href="{{route('products.deleted')}}" class="btn btn-danger btn-circle">
-        <i class="fas fa-trash"></i>
-    </a>
 @endsection
 
 @section('contenido')
-
-    @include('products.modals.create')
-    @include('products.modals.update')
-    @include('products.modals.delete')
 
     <div class="card">
         <div class="card-body">
@@ -40,13 +33,12 @@
                         <td>{{$product->quantity}}</td>
                         <td> ${{$product->total_cost}}</td>
                         <td>
-                            <a href="" class="edit-form-data" data-toggle="modal" data-target="#editMdl" onclick="editProduct({{$product}})">
-                                <i class="far fa-edit"></i>
-                            </a>
-
-                            <a href="" class="delete-form-data" data-toggle="modal" data-target="#deleteMdl" onclick="deleteProduct({{$product}})">
-                                <i class="far fa-trash-alt"></i>
-                            </a>
+                            <form method="POST" action="{{route('products.restore', ['id' => $product->id])}}">
+                                {{csrf_field()}}
+                                <button class="btn">
+                                    <i class="fas fa-trash-restore"></i>
+                                </button>
+                           </form>
                         </td>
                     </tr>
                 @endforeach

@@ -56,6 +56,22 @@ class ProductController extends Controller
         toast('Producto eliminado', 'success');
 
         return redirect()->route('products.index');
-
     }
+
+    public function allDeleted()
+    {
+        $products = Product::onlyTrashed()->get();
+
+        return view('products.deleted', compact('products'));
+    }
+
+    public function restore($id)
+    {
+        Product::onlyTrashed()->find($id)->restore();
+  
+        toast('Producto restaurado', 'success');
+
+        return redirect()->route('products.index');
+    }  
+
 }
