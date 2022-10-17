@@ -22,9 +22,15 @@ class ProductRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    { 
+        $id = 0;
+
+        if (in_array($this->method(), ['PUT', 'PATCH'])) {
+            $id = $this->route('product')['id'];
+        }
+
         return [
-            'name' => ['required', 'string', 'unique:products,name', 'max:255'],
+            'name' => ['required', 'string', 'unique:products,name,' . $id, 'max:255'],
             'description' => ['nullable', 'string'],
             'unit_price' => ['required', 'numeric'],
             'quantity' => ['required', 'integer'],

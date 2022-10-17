@@ -39,7 +39,7 @@ class ProductController extends Controller
         //
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
         $product->fill($request->all());
         $product->save();
@@ -51,6 +51,11 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+
+        toast('Producto eliminado', 'success');
+
+        return redirect()->route('products.index');
+
     }
 }

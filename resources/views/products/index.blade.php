@@ -36,12 +36,11 @@
                         <td>{{$product->quantity}}</td>
                         <td> ${{$product->total_cost}}</td>
                         <td>
-                            <a href="" class="edit-form-data" data-toggle="modal" data-target="#editMdl"
-                            onclick="editProduct({{$product}})">
+                            <a href="" class="edit-form-data" data-toggle="modal" data-target="#editMdl" onclick="editProduct({{$product}})">
                                 <i class="far fa-edit"></i>
                             </a>
 
-                            <a href="" class="delete-form-data" data-toggle="modal" data-target="#deleteMdl">
+                            <a href="" class="delete-form-data" data-toggle="modal" data-target="#deleteMdl" onclick="deleteProduct({{$product}})">
                                 <i class="far fa-trash-alt"></i>
                             </a>
                         </td>
@@ -67,10 +66,43 @@
             $("input[name='unit_price'], input[name='quantity']").on('keyup', function () {
                 calculateTotalCost(this);
             });
+
+            function calculateTotalCost(input){
+                const formId = input.closest('form').id;
+                const unitPrice = Number($(`#${formId} input[name='unit_price']`).val());
+                const quantity = Number($(`#${formId} input[name='quantity']`).val());
+                const totalCost = $(`#${formId} input[name='total_cost']`);
+
+                if(!isNaN(unitPrice) && !isNaN(quantity)){
+                    totalCost.val(unitPrice * quantity);
+                }
+            }      
+
+            $('#createMdl').on('hidden.bs.modal', function () {
+                var form = $('#createProductFrm');
+                form.trigger('reset')
+                form.find(`input.is-invalid`).removeClass('is-invalid');
+                form.find(`span.text-danger`).remove();
+                form.find(`input[name='unit_price']`).val(0)
+                form.find(`input[name='quantity']`).val(0)
+                form.find(`input[name='total_cost']`).val(0)
+            })
+
+            $('#editMdl').on('hidden.bs.modal', function () {
+                var form = $('#editProductFrm');
+                form.trigger('reset')
+                form.find(`input.is-invalid`).removeClass('is-invalid');
+                form.find(`span.text-danger`).remove();
+                $("#editProductFrm").attr('action', '');
+            })
         });
 
         function editProduct(product){
-            $("#editProductFrm").attr('action',`/products/${product.id}`);
+            const action = `/products/${product.id}`;
+
+            $("#editProductFrm").attr('action', action);
+
+            localStorage.setItem('action', action);
 
             $("#editProductFrm #name").val(product.name);
             $("#editProductFrm #description").val(product.description);
@@ -79,16 +111,13 @@
             $("#editProductFrm #total_cost").val(product.total_cost);
         }
 
-        function calculateTotalCost(input){
-            const formId = input.closest('form').id;
-            const unitPrice = $(`#${formId} input[name='unit_price']`);
-            const quantity = $(`#${formId} input[name='quantity']`);
-            const totalCost = $(`#${formId} input[name='total_cost']`);
+        function deleteProduct(product) {
+            $("#deleteProductFrm").attr('action', `/products/${product.id}`);
 
-            if(unitPrice.val() && quantity.val()){
-                totalCost.val(unitPrice.val() * quantity.val());
-            }
+            $('#deleteProductFrm #productName').text(product.name);
         }
+
+         
     </script>
 
     @if(!$errors->isEmpty())
@@ -102,6 +131,7 @@
             <script>
                 $(function () {
                     $('#editMdl').modal('show');
+                    $("#editProductFrm").attr('action', localStorage.getItem('action'));
                 });
             </script>
         @endif

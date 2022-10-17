@@ -4,11 +4,11 @@ services:
     return-laravel:
         container_name: return_laravel
         build:
-            context: ./vendor/laravel/sail/runtimes/8.0
+            context: ./vendor/laravel/sail/runtimes/8.1
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: sail-8.0/app
+        image: sail-8.1/app
         ports:
             - '${APP_PORT:-80}:80'
         environment:
